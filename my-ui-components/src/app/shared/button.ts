@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'main-btn',
   template: `
-    <button matRipple class={{class}}><ng-content></ng-content></button>`,
+    <button mat-raised-button class={{class}}><ng-content></ng-content></button>`,
   styles: [`
     button {
       margin-top: 1em;

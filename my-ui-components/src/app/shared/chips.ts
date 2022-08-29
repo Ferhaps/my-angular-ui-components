@@ -1,11 +1,11 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { fader } from './animations';
 
 @Component({
   selector: 'chips',
   template: `
   <mat-chip-list>
-    <mat-chip *ngFor="let chip of chips; trackBy: trackById" @fadeInOut [selectable]="false" class="chip">
+    <mat-chip *ngFor="let chip of chips; trackBy: trackById" @fadeInOut class="chip">
       {{chip.name}}
       <img src="../../../assets/icons/closeXChip.svg" alt="X" (click)="removeFilter(chip)">
     </mat-chip>
@@ -27,12 +27,12 @@ import { fader } from './animations';
 export class ChipsComponent {
   @Input() chips: any = [];
 
+  @Output() removed = new EventEmitter();
+
   hoverIndex!: number;
 
-  constructor(private el: ElementRef) {}
-
   removeFilter(chip: any): void {
-
+    this.removed.emit(chip);
   }
 
   trackById(index: number, chip: any): number {

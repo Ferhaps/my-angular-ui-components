@@ -1,0 +1,32 @@
+<div class="dropdown">
+  <div class="flexer" style="margin-bottom: 0.3em;">
+    <div class="pointer" style="width: 1em;">
+      <img
+        class="dropdown-arrow"
+        [ngClass]="{'opening': state}"
+        src="../../../assets/icons/dropdownIcon.svg" alt=">"
+        (click)="state = !state">
+    </div>
+    <div class="dropdown-title pointer" (click)="state = !state">{{title}}</div>
+    <div *ngIf="filtersCount > 0" style="margin-left: 5px;">({{filtersCount}})</div>
+  </div>
+  <div *ngIf="state" style="width: 100%;" @open-close-dropdown>
+    <div class="input-img-container">
+      <input type="text" name="text" #inputText="ngModel"
+        placeholder="Search {{title}}"
+        (input)="onTyping()"
+        [(ngModel)]="text">
+      <div class="input-icon pointer" (click)="onCloseClick()">
+        <img width="12px" height="12px" src="../../../assets/icons/closeX.svg" alt="X">
+      </div>
+    </div>
+    <div class="open-dropdown" #list>
+      <div *ngFor="let obj of data; index as i; trackBy: trackById"
+        class="dropdown-item flexer" #row
+        (click)="onRowClick($event, obj, box, row, data)">
+        <input type="checkbox" #box>
+        <div #data>{{obj[prop]}}</div>
+      </div>
+    </div>
+  </div>
+</div>
